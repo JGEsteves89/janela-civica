@@ -1,0 +1,129 @@
+# Receita da Freguesia de Fão. Tudo o que é específico desta autarquia está aqui.
+id: fao
+tipo: freguesia
+nome: Freguesia de Fão
+municipio: esposende            # autarquia "mãe"
+dicofre: "030606"
+nif: "519048857"                # NIF da nova freguesia (2025-), visto no Portal BASE
+populacao: {}                   # preenchido pela recolha do INE quando possível
+geo:
+  centro: [41.508, -8.774]
+  lugares: [Fão, Ofir, Bonança, Pedreiras, Rua Serpa Pinto, Avenida António Veiga, Alameda do Bom Jesus, Cávado]
+
+# Fão teve três "vidas" administrativas. Cada uma tem o seu NIF e as suas fontes.
+historia:
+  - id: fao-antiga
+    nome: Freguesia de Fão
+    de: null
+    ate: 2013-09-29
+    dicofre: "030606"
+  - id: uniao-apulia-fao
+    nome: União das Freguesias de Apúlia e Fão
+    de: 2013-09-29
+    ate: 2025-10-12
+    dicofre: "030616"
+    nif: "510834515"
+    nota: "Na desagregação (2025), Fão ficou com 40% do património e das dívidas."
+  - id: fao
+    nome: Freguesia de Fão
+    de: 2025-10-12
+    ate: null
+    nif: "519048857"
+
+# Calendário: ajustes às regras gerais
+calendario:
+  tem_cemiterio: true
+  tem_mercado: true              # Praça semanal
+  reunioes_junta_por_ano: 12
+  sessoes_assembleia_por_ano: 4
+
+fontes:
+  - id: jffao
+    unidade: fao
+    tipo: sitemap
+    url: https://jffao.pt/sitemap_index.xml
+    excluir: ['/category/', '/tag/', '/author/', '/page/', 'locations.kml']
+  - id: freguesias-uniao          # site da União (alojado no freguesias.pt): atas, contas de gerência, orçamento/PPI, editais
+    unidade: uniao-apulia-fao
+    tipo: crawl
+    inicio:
+      - https://www.freguesias.pt/portal/editais_actas.php?cod=030616
+      - https://www.freguesias.pt/portal/editais_actas.php?cod=030616&catGA=2
+      - https://www.freguesias.pt/portal/editais_actas.php?cod=030616&catGA=3
+      - https://www.freguesias.pt/portal/editais_actas.php?cod=030616&catGA=4
+      - https://www.freguesias.pt/portal/autarcas.php?cod=030616
+      - https://www.freguesias.pt/freguesia.php?cod=030616
+    seguir: ['editais_actas\.php\?.*cod=030616.*pageNum_editais=']
+    ficar_em: ['https://www.freguesias.pt/portal/editais_actas.php']
+    guardar_paginas: ['autarcas\.php\?cod=030616', 'freguesia\.php\?cod=030616']
+    excluir_ficheiros: ['/galeria/', '/destaques/', '/noticias/']
+    ignorar_robots: ['^https://www\.freguesias\.pt/imagens/030616/varias/']
+    motivo_excecao: "atas, orçamentos e contas são documentos públicos de publicação obrigatória (Lei 75/2013); cada ficheiro é lido uma vez e guardado"
+    pausa: 3
+    max_paginas: 200
+  - id: freguesias-fao-antiga     # Fão antes de 2013 (o mesmo portal, código 030606)
+    unidade: fao-antiga
+    tipo: crawl
+    inicio:
+      - https://www.freguesias.pt/portal/editais_actas.php?cod=030606
+      - https://www.freguesias.pt/portal/editais_actas.php?cod=030606&catGA=2
+      - https://www.freguesias.pt/portal/editais_actas.php?cod=030606&catGA=3
+      - https://www.freguesias.pt/portal/editais_actas.php?cod=030606&catGA=4
+    seguir: ['editais_actas\.php\?.*cod=030606.*pageNum_editais=']
+    ficar_em: ['https://www.freguesias.pt/portal/editais_actas.php']
+    excluir_ficheiros: ['/galeria/', '/destaques/', '/noticias/']
+    ignorar_robots: ['^https://www\.freguesias\.pt/imagens/030606/varias/']
+    motivo_excecao: "atas, orçamentos e contas são documentos públicos de publicação obrigatória (Lei 75/2013); cada ficheiro é lido uma vez e guardado"
+    pausa: 3
+    max_paginas: 100
+  - id: capturas                   # páginas copiadas à mão pelo browser (ex.: resultados eleitorais antigos), com a fonte em _fonte.json
+    unidade: uniao-apulia-fao
+    tipo: inbox
+    pasta: data/capturas
+  - id: base-fao
+    unidade: fao
+    tipo: base
+    nif: "519048857"
+    nome_pesquisa: "Freguesia de Fão"
+  - id: base-uniao
+    unidade: uniao-apulia-fao
+    tipo: base
+    nif: "510834515"
+    nome_pesquisa: "Apúlia e Fão"
+  - id: base-fao-antiga
+    unidade: fao-antiga
+    tipo: base
+    nif: null
+    nome_pesquisa: "Freguesia de Fão"
+    ate: 2013-09-29
+  - id: eleicoes-2025
+    unidade: fao
+    tipo: sgmai
+    url: https://www.eleicoes.mai.gov.pt/autarquicas2025/
+    eleicao: 2025-10-12
+    territorio: [Braga, Esposende, Fão]
+  - id: dgal-fff
+    unidade: fao
+    tipo: pagina_ficheiros
+    url: https://portalautarquico.dgal.gov.pt/pt-PT/financas-locais/transferencias/freguesias/
+    ficheiros: ['\.xlsx?$', '\.pdf$', '\.csv$']
+  - id: ine
+    unidade: fao
+    tipo: ine
+  - id: caixa
+    unidade: fao
+    tipo: inbox
+    pasta: data/inbox
+
+partidos:
+  PSD: {nome: "PPD/PSD", cor: "#f39200"}
+  PS:  {nome: "PS", cor: "#e2007a"}
+  CDS: {nome: "CDS-PP", cor: "#0093dd"}
+  CDU: {nome: "CDU (PCP-PEV)", cor: "#c8102e"}
+  BE:  {nome: "Bloco de Esquerda", cor: "#8b0000"}
+  CH:  {nome: "Chega", cor: "#202060"}
+  IL:  {nome: "Iniciativa Liberal", cor: "#00aeef"}
+  M:   {nome: "Mudança por Todos", cor: "#6a8caf", independente: true}
+  FAO: {nome: "Fazer com Alma e Orgulho", cor: "#2a9d8f", independente: true}
+
+revisores: [jesteves]

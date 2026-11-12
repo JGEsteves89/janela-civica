@@ -1,0 +1,108 @@
+# Taxonomia comum a todas as autarquias (requisitos 03 §2).
+# grupo = cor na linha do tempo; importancia = peso (3 = mais alto).
+# cadencia: anual | por_reuniao | por_sessao | trimestral | mensal | continuo | quando_muda | por_eleicao | ad_hoc
+# padroes: expressões (sem acentos, minúsculas) procuradas no título, texto do link, nome do ficheiro e 1.ª página.
+
+grupos:
+  planeamento: {nome: "Planeamento", cor: "#4e79a7"}
+  contas:      {nome: "Contas", cor: "#59a14f"}
+  reunioes:    {nome: "Reuniões", cor: "#9c755f"}
+  saidas:      {nome: "Dinheiro que sai", cor: "#b07aa1"}
+  entradas:    {nome: "Dinheiro que entra", cor: "#76b7b2"}
+  pessoas:     {nome: "Pessoas", cor: "#edc948"}
+  regras:      {nome: "Regras", cor: "#ff9da7"}
+  narrativa:   {nome: "Relatórios", cor: "#bab0ac"}
+  eleicoes:    {nome: "Eleições", cor: "#555555"}
+  pedidos:     {nome: "Pedidos LADA", cor: "#000000"}
+  outro:       {nome: "Outro", cor: "#cccccc"}
+
+tipos:
+  orcamento:          {nome: "Orçamento", grupo: planeamento, importancia: 3, cadencia: anual, periodo: ano_seguinte,
+                       padroes: ['orcamento(?! municipal participativo)', 'documentos previsionais', 'mapa resumo']}
+  gop:                {nome: "Grandes Opções do Plano (PPI + PPA)", grupo: planeamento, importancia: 3, cadencia: anual, periodo: ano_seguinte,
+                       padroes: ['grandes opcoes', '\bgop\b', '\bppi\b', 'plano plurianual de investimentos']}
+  revisao_orcamental: {nome: "Revisão orçamental", grupo: planeamento, importancia: 2, cadencia: ad_hoc, periodo: ano,
+                       padroes: ['revisao (orcamental|ao orcamento)', 'revisao n']}
+  alteracao_orcamental: {nome: "Alteração orçamental", grupo: planeamento, importancia: 1, cadencia: ad_hoc, periodo: ano,
+                       padroes: ['alterac\w+ (orcamental|modificativ|ao orcamento|permutativ)']}
+  prestacao_contas:   {nome: "Prestação de contas", grupo: contas, importancia: 3, cadencia: anual, periodo: ano_anterior, prazo: "04-30",
+                       padroes: ['prestacao de contas', 'conta de gerencia', 'relatorio de gestao', 'contas consolidadas', 'demonstrac\w+ financeir', 'certificacao legal das contas']}
+  informacao_escrita: {nome: "Informação escrita do presidente", grupo: contas, importancia: 2, cadencia: por_sessao, periodo: sessao,
+                       padroes: ['informacao escrita', 'informacao do presidente', 'atividade (da junta|municipal) e situacao financeira']}
+  ata_junta:          {nome: "Ata da Junta / Câmara", grupo: reunioes, importancia: 2, cadencia: por_reuniao, periodo: reuniao,
+                       padroes: ['\b(?:acta|ata)\b(?!.*assembleia)', 'reuniao (do executivo|de camara|da camara|ordinaria|extraordinaria)', 'acta ufaf']}
+  ata_assembleia:     {nome: "Ata da Assembleia", grupo: reunioes, importancia: 2, cadencia: por_sessao, periodo: sessao,
+                       padroes: ['(?:acta|ata).*assembleia', 'assembleia.*(?:acta|ata)', 'sessao.*assembleia.*(?:acta|ata)', 'instalacao (dos orgaos|da assembleia)']}
+  edital_convocatoria: {nome: "Edital de convocatória", grupo: reunioes, importancia: 1, cadencia: por_sessao, periodo: sessao,
+                       padroes: ['convoca', 'sessao (ordinaria|extraordinaria).*assembleia', 'edital.*sessao', 'ordem do dia', 'ordem de trabalhos']}
+  edital_deliberacoes: {nome: "Edital de deliberações", grupo: reunioes, importancia: 1, cadencia: por_reuniao, periodo: reuniao,
+                       padroes: ['edital.*deliberac', 'deliberac\w+ (da camara|da junta|aprovad)', 'publicitacao das deliberac']}
+  lista_apoios:       {nome: "Lista de apoios / subvenções", grupo: saidas, importancia: 3, cadencia: anual, periodo: ano,
+                       padroes: ['subvenc', 'apoios concedidos', 'beneficios concedidos', 'lei 64/2013']}
+  contrato_publico:   {nome: "Contrato público (BASE)", grupo: saidas, importancia: 2, cadencia: continuo, periodo: data,
+                       padroes: []}
+  contrato_interadministrativo: {nome: "Contrato interadministrativo / acordo de execução / auto de transferência", grupo: entradas, importancia: 3, cadencia: anual, periodo: ano,
+                       padroes: ['contrato interadministrativo', 'acordo de execucao', 'auto de transferencia', 'delegacao de competencias', 'transferencia de competencias']}
+  protocolo:          {nome: "Protocolo / acordo de cooperação", grupo: entradas, importancia: 2, cadencia: ad_hoc, periodo: ano,
+                       padroes: ['protocolo', 'acordo de cooperacao', 'contrato-programa', 'contrato programa']}
+  mapa_pessoal:       {nome: "Mapa de pessoal", grupo: pessoas, importancia: 2, cadencia: anual, periodo: ano_seguinte,
+                       padroes: ['mapa (de|do) pessoal']}
+  procedimento_concursal: {nome: "Procedimento concursal (pessoal)", grupo: pessoas, importancia: 1, cadencia: ad_hoc, periodo: data,
+                       padroes: ['concurso (tecnico|assistente)', 'procedimento concursal', 'lista de ordenacao', 'oferta.*oe20', 'candidatos admitidos']}
+  regulamento:        {nome: "Regulamento", grupo: regras, importancia: 2, cadencia: quando_muda, periodo: data,
+                       padroes: ['regulamento', 'regimento', 'postura']}
+  tabela_taxas:       {nome: "Tabela de taxas", grupo: regras, importancia: 2, cadencia: quando_muda, periodo: ano,
+                       padroes: ['tabela (geral )?de taxas', 'taxas e precos']}
+  inventario:         {nome: "Inventário", grupo: contas, importancia: 1, cadencia: anual, periodo: ano,
+                       padroes: ['inventario']}
+  controlo_interno:   {nome: "Norma de controlo interno", grupo: regras, importancia: 1, cadencia: quando_muda, periodo: data,
+                       padroes: ['controlo interno']}
+  relatorio_atividades: {nome: "Relatório de atividades", grupo: narrativa, importancia: 1, cadencia: anual, periodo: ano_anterior,
+                       padroes: ['relatorio de (atividades|actividades)']}
+  plano_atividades:   {nome: "Plano de atividades", grupo: narrativa, importancia: 1, cadencia: anual, periodo: ano_seguinte,
+                       padroes: ['plano de (atividades|actividades)']}
+  pagamentos_atraso:  {nome: "Pagamentos em atraso / fundos disponíveis", grupo: contas, importancia: 2, cadencia: mensal, periodo: mes,
+                       padroes: ['pagamentos em atraso', 'fundos disponiveis']}
+  resultado_eleitoral: {nome: "Resultado eleitoral", grupo: eleicoes, importancia: 3, cadencia: por_eleicao, periodo: data,
+                       padroes: ['apuramento (geral|local)', 'resultados? eleitora', 'mapa oficial', 'listas? (de )?candidat']}
+  aviso:              {nome: "Aviso / edital geral", grupo: outro, importancia: 0, cadencia: ad_hoc, periodo: data,
+                       padroes: ['\bedital\b', '\baviso\b', 'hasta publica', 'consulta publica', 'discussao publica']}
+  publicacao_redes:   {nome: "Publicação nas redes sociais", grupo: outro, importancia: 0, cadencia: ad_hoc, periodo: data,
+                       padroes: []}
+  noticia:            {nome: "Notícia / atividade", grupo: outro, importancia: 0, cadencia: ad_hoc, periodo: data,
+                       padroes: []}
+  pedido_lada:        {nome: "Pedido LADA (nosso)", grupo: pedidos, importancia: 0, cadencia: ad_hoc, periodo: data, padroes: []}
+  outro:              {nome: "Outro", grupo: outro, importancia: 0, cadencia: ad_hoc, periodo: data, padroes: []}
+
+# Documentos esperados por ano (requisitos 03 §4). "orgao" diz qual órgão os produz.
+esperados:
+  freguesia:
+    - {tipo: orcamento, por_ano: 1}
+    - {tipo: gop, por_ano: 1}
+    - {tipo: prestacao_contas, por_ano: 1}
+    - {tipo: informacao_escrita, por_ano: 4}
+    - {tipo: ata_junta, por_ano: 12}
+    - {tipo: ata_assembleia, por_ano: 4}
+    - {tipo: edital_convocatoria, por_ano: 4}
+    - {tipo: lista_apoios, por_ano: 1}
+    - {tipo: mapa_pessoal, por_ano: 1}
+    - {tipo: relatorio_atividades, por_ano: 1}
+    - {tipo: inventario, por_ano: 1}
+    - {tipo: tabela_taxas, por_mandato: 1}
+    - {tipo: controlo_interno, por_mandato: 1}
+  municipio:
+    - {tipo: orcamento, por_ano: 1}
+    - {tipo: gop, por_ano: 1}
+    - {tipo: prestacao_contas, por_ano: 1}
+    - {tipo: informacao_escrita, por_ano: 5}
+    - {tipo: ata_junta, por_ano: 24}
+    - {tipo: ata_assembleia, por_ano: 5}
+    - {tipo: edital_convocatoria, por_ano: 5}
+    - {tipo: lista_apoios, por_ano: 1}
+    - {tipo: mapa_pessoal, por_ano: 1}
+    - {tipo: relatorio_atividades, por_ano: 1}
+    - {tipo: inventario, por_ano: 1}
+    - {tipo: tabela_taxas, por_mandato: 1}
+    - {tipo: controlo_interno, por_mandato: 1}
+
+eleicoes: [2005-10-09, 2009-10-11, 2013-09-29, 2017-10-01, 2021-09-26, 2025-10-12, 2029-10-14]

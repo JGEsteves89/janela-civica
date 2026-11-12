@@ -1,0 +1,6 @@
+requests
+beautifulsoup4
+PyYAML
+pypdfium2
+openpyxl
+pillow

@@ -1,0 +1,60 @@
+# Receita do Município de Esposende.
+id: esposende
+tipo: municipio
+nome: Município de Esposende
+dicofre: "0306"
+nif: "506617599"
+geo:
+  centro: [41.533, -8.781]
+freguesias: [fao]               # freguesias com página própria
+
+historia:
+  - {id: esposende, nome: Município de Esposende, de: null, ate: null, nif: "506617599"}
+
+calendario:
+  reunioes_camara_por_ano: 24
+  sessoes_assembleia_por_ano: 5
+
+fontes:
+  - id: camara-site
+    unidade: esposende
+    tipo: crawl
+    inicio:
+      - https://www.municipio.esposende.pt/municipio/camara-municipal/atos-oficiais-e-documentacao/atas
+      - https://www.municipio.esposende.pt/municipio/camara-municipal/atos-oficiais-e-documentacao/editais
+      - https://www.municipio.esposende.pt/municipio/camara-municipal/atos-oficiais-e-documentacao/documentos
+      - https://www.municipio.esposende.pt/municipio/assembleia-municipal/atas
+      - https://www.municipio.esposende.pt/municipio/assembleia-municipal/editais
+      - https://www.municipio.esposende.pt/municipio/assembleia-municipal/documentos
+    seguir: ['folders_list_\d+_folder_id=\d+', 'page_[a-z_]+=\d+']
+    ficar_em:
+      - https://www.municipio.esposende.pt/municipio/camara-municipal/atos-oficiais-e-documentacao/
+      - https://www.municipio.esposende.pt/municipio/assembleia-municipal/
+    max_paginas: 4000
+  - id: base-camara
+    unidade: esposende
+    tipo: base
+    nif: "506617599"
+    nome_pesquisa: "Município de Esposende"
+  - id: base-abertos          # alternativa ao BASE: dados abertos do IMPIC (dados.gov.pt), um Excel por ano.
+    unidade: esposende        # Lê cada ano uma vez e guarda os contratos de TODAS as fontes "base" (Câmara e Fão).
+    tipo: base_abertos
+  - id: eleicoes-2025-cm
+    unidade: esposende
+    tipo: sgmai
+    url: https://www.eleicoes.mai.gov.pt/autarquicas2025/
+    eleicao: 2025-10-12
+    territorio: [Braga, Esposende]
+  - id: ine
+    unidade: esposende
+    tipo: ine
+
+partidos:
+  PSD: {nome: "PPD/PSD", cor: "#f39200"}
+  PS:  {nome: "PS", cor: "#e2007a"}
+  CDS: {nome: "CDS-PP", cor: "#0093dd"}
+  CDU: {nome: "CDU (PCP-PEV)", cor: "#c8102e"}
+  BE:  {nome: "Bloco de Esquerda", cor: "#8b0000"}
+  CH:  {nome: "Chega", cor: "#202060"}
+  IL:  {nome: "Iniciativa Liberal", cor: "#00aeef"}
+  M:   {nome: "Mudança por Todos", cor: "#6a8caf", independente: true}

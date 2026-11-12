@@ -1,0 +1,6 @@
+.venv/
+data/
+public/
+_to_delete/
+__pycache__/
+.DS_Store
