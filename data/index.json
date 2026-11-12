@@ -1,0 +1,1 @@
+{"autarquias":[{"id":"esposende","tipo":"municipio","nome":"Município de Esposende","municipio":null,"score":63.2,"ano_score":2026,"documentos":3717,"alertas":2298},{"id":"fao","tipo":"freguesia","nome":"Freguesia de Fão","municipio":"esposende","score":20.7,"ano_score":2026,"documentos":808,"alertas":328}],"gerado":"2026-11-12T14:01:19+00:00"}
